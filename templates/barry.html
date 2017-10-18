@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>barry</title>
+	<title>MySpace</title>
 </head>
 <body>
-	Hi there barry.
-</body> 
+	{% if user %}
+		<h1>Hello you {{user}}</h1>
+	{%else%}
+		<h6>This is not anybody's space.</h6>
+	{%endif%}
+</body>
 </html>

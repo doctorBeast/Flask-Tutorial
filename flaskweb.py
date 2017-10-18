@@ -3,6 +3,16 @@ from flask import Flask,request,render_template
 
 app = Flask(__name__)
 
+@app.route('/')
+@app.route('/<user>')
+def mainpage(user = None):
+	return render_template('barry.html',user = user)
+
+@app.route('/shopping')
+def shopping():
+	food = ["cheese","Choley","Pizza"]
+	return render_template("shopping.html",food = food)
+
 @app.route('/profile/<name>')
 def profile(name):
 	return render_template("profile.html", name= name)
