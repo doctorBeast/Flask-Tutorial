@@ -1,7 +1,8 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/web2db'
 db = SQLAlchemy(app)
 
@@ -19,8 +20,15 @@ class User(db.Model):
 
 @app.route('/')
 def index():
-	return "hello flask"
+	return render_template('barry.html')
+
+@app.route('/post_user',methods = ['POST'])
+def post_user():
+	user = User(request.form['username'],request.form['email'])
+	db.session.add(user)
+	db.session.commit()
+	return redirect(url_for('index'))
 
 if __name__ == "__main__":
-	app.run()
+	app.run(debug = True)
 

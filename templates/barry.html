@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MySpace</title>
+	<title>POST</title>
 </head>
 <body>
-	{% if user %}
-		<h1>Hello you {{user}}</h1>
-	{%else%}
-		<h6>This is not anybody's space.</h6>
-	{%endif%}
+	<form method="POST" action="/post_user">
+		<label>Username:</label>
+		<input id="username" type="text"/ name="username">
+		<label>Email:</label>
+		<input id="email" type="text"/ name="email">
+		<input type="submit"/>
+
+	</form>
 </body>
 </html>
