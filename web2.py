@@ -10,7 +10,8 @@ class User(db.Model):
 	id = db.Column(db.Integer,primary_key = True)
 	username = db.Column(db.String(80),unique = True)
 	email = db.Column(db.String(120),unique = True)
-	
+	about = db.Column(db.String(120))
+
 	def __init__(self,username,email):
 		self.username = username
 		self.email = email
@@ -20,7 +21,18 @@ class User(db.Model):
 
 @app.route('/')
 def index():
-	return render_template('barry.html')
+	myUser = User.query.all()
+	onetime = User.query.filter_by(email= 'jkl' ).all()
+	print(myUser[0].about)
+	return render_template('barry.html', myUser = myUser,onetime = onetime)
+
+@app.route('/profile',methods = ['POST'])
+def profile():
+
+	name = request.form['querry']
+	twotime = User.query.filter_by(username = name).first()
+	return "<label>Here is the About of that User: %s</label>" %twotime.about
+				
 
 @app.route('/post_user',methods = ['POST'])
 def post_user():
