@@ -12,15 +12,8 @@
 		<input type="submit" value="Send" />
 
 	</form>
-	<ul>
-	{%for user in myUser%}
-	<li>{{user.id}} : {{user.email}} : {{user.about}}</li>
-	{%endfor%}
-	</ul>
-
-	{{onetime}}
-
-	<form method="POST" action="/profile">
+	
+	<form method="POST" action="/myprofile">
 		
 		<label>Who's info do you want?</label>
 		<input type="text" id="querry" name='querry' />

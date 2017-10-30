@@ -1,37 +1,58 @@
 from flask import Flask,render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask.ext.security import Security,SQLAlchemyUserDatastore,UserMixin, RoleMixin, login_required
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'super-secret'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/web2db'
+app.config['SECURITY_REGISTERABLE'] = True
+app.config['SECURITY_PASSWORD_SALT'] = 'saltpassword'
 db = SQLAlchemy(app)
 
-class User(db.Model):
-	id = db.Column(db.Integer,primary_key = True)
-	username = db.Column(db.String(80),unique = True)
-	email = db.Column(db.String(120),unique = True)
-	about = db.Column(db.String(120))
+roles_users = db.Table('roles_users',
+        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
-	def __init__(self,username,email):
-		self.username = username
-		self.email = email
+class Role(db.Model, RoleMixin):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(80), unique=True)
+    description = db.Column(db.String(255))
 
-	def __repr__(self):
-		return '<User %r>' % self.username	
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), unique=True)
+    password = db.Column(db.String(255))
+    active = db.Column(db.Boolean())
+    confirmed_at = db.Column(db.DateTime())
+    roles = db.relationship('Role', secondary=roles_users,backref=db.backref('users', lazy='dynamic'))
+
+# Setup Flask-Security
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+security = Security(app, user_datastore)
+
+# Create a user to test with
+# @app.before_first_request
+# def create_user():
+#     db.create_all()
+#     user_datastore.create_user(email='Amatt@nobien.net', password='test123')
+#     db.session.commit()
 
 @app.route('/')
 def index():
-	myUser = User.query.all()
-	onetime = User.query.filter_by(email= 'jkl' ).all()
-	print(myUser[0].about)
-	return render_template('barry.html', myUser = myUser,onetime = onetime)
+	return render_template('barry.html')
 
-@app.route('/profile',methods = ['POST'])
-def profile():
+@app.route('/profile/<email>')
+@login_required
+def profile(email):
+	user = User.query.filter_by(email = email).first()
+	return ('hello brother')
+
+@app.route('/myprofile',methods = ['POST'])
+def myprofile():
 
 	name = request.form['querry']
-	twotime = User.query.filter_by(username = name).first()
-	return "<label>Here is the About of that User: %s</label>" %twotime.about
+	twotime = User.query.filter_by(email = name).first()
+	return "<label>Here is the About of that User: %s</label>" %twotime
 				
 
 @app.route('/post_user',methods = ['POST'])
