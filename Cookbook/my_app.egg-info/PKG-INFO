@@ -1,0 +1,18 @@
+Metadata-Version: 1.1
+Name: my-app
+Version: 1.0
+Summary: First Flask Setup
+Home-page: UNKNOWN
+Author: Pranjal
+Author-email: pranjalbhansali@yahoo.com
+License: GNU General Public Liscense v3
+Description: UNKNOWN
+Platform: any
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Inteded Audience :: Developers
+Classifier: Liscense:: OSI Approved :: GNU General Public Liscense v3
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Python Module
