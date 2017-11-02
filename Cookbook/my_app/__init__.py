@@ -1,4 +1,5 @@
 from flask import Flask
-app = Flask(__name__)
+from my_app.product.views import product_blueprint
 
-import my_app.hello.views
+app = Flask(__name__)
+app.register_blueprint(product_blueprint)
