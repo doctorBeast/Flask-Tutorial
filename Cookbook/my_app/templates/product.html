@@ -1,7 +1,8 @@
-{% extends 'home.html' %}
+{% extends 'base.html' %}
 
 {% block container %}
 	<div class="top-pad">
+		<h4>{{full_name(product)}}</h4>
 		<h1>
 			{{product['name']}}
 			<small>
@@ -9,5 +10,10 @@
 			</small>
 		</h1>
 		<h3>$ {{product['price']}}</h3>
+		<h4>{{product | full_name}}</h4>
+		<!-- <p>{%for x in product['name'] | reverse%}
+			{{x}}
+			{%endfor%}
+		</p> -->
 	</div>
 {% endblock %}
