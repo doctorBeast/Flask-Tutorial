@@ -1,5 +1,18 @@
 from flask import Flask
-from my_app.product.views import product_blueprint
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.script import Manager
+from flask.ext.migrate import Migrate, MigrateCommand
 
 app = Flask(__name__)
-app.register_blueprint(product_blueprint)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/testdb'
+db = SQLAlchemy(app)
+migrate = Migrate(app,db)
+
+manager = Manager(app)
+manager.add_command('db',MigrateCommand)
+
+
+import my_app.catalog.views
+
+
+db.create_all()
