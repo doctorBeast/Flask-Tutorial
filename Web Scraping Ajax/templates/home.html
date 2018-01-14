@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Train Info</title>
+</head>
+<body>
+
+	<h4>Type the station code and time interval</h4>
+	<form action="{{url_for('search')}}" method="post">
+		<label>Staiton Code :</label>
+		<input type="text" name="station_name" placeholder="Eg:NDLS">
+		<label>From :</label>
+		<input type="time" name="start_time">
+		<label>To :</label>
+		<input type="time" name="end_time">
+		<input type="submit" name="" value="Submit">
+	</form>
+
+</body>
+</html>
