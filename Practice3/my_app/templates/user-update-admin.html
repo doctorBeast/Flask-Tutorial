@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+This is user-update-admin.html page.
+<form>
+{{form.csrf_token}}
+	<div class="form-group">{{form.username.label}}:{{form.username()}}</div>
+	<div class="form-group">{{form.admin.label}}:{{form.admin()}}</div>
+	<button type="submit">Submit</button>
+</form>
+</body>
+</html>

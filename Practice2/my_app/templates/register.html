@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<form method="POST" action="{{url_for('bprint.register')}}">
+	{{form.csrf_token}}
+	<div class="form-group">{{form.username.label}}:{{form.username()}}</div>
+	<div class="form-group">{{form.password.label}}:{{form.password()}}</div>
+	<div class="form-group">{{form.confirm_password.label}}:{{form.confirm_password()}}</div>
+	<div class="form-group">{{form.gstin.label}}:{{form.gstin()}}</div>
+	<div class="form-group">{{form.company_name.label}}:{{form.company_name()}}</div>
+	<div class="form-group">{{form.email_id.label}}:{{form.email_id()}}</div>
+	<div class="form-group">{{form.mobile_no.label}}:{{form.mobile_no()}}</div>
+	<div class="form-group">{{form.address.label}}:{{form.address()}}</div>
+	<div class="form-group">{{form.deals_in.label}}:{{form.deals_in()}}</div>
+	<button type="submit">Submit</button>
+</form>
+{% endblock %}

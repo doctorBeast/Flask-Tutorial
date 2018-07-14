@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<form method="POST" action="{{url_for('bprint.adminlogin')}}">
+	{{form.csrf_token}}
+	<div class="form-group">{{form.username.label}}:{{form.username()}}</div>
+	<div class="form-group">{{form.password.label}}:{{form.password()}}</div>
+	<button type="submit">Submit</button>
+</form>
+{% endblock %}

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+This is user-create-admin.html page
+<form action="{{url_for('bprint.user_create_admin')}}" method="POST">
+	{{form.csrf_token}}
+		<div class="form-group">{{form.username.label}} : {{form.username()}}</div>
+		<div class="form-group">{{form.password.label}} : {{form.password()}}</div>
+		<div class="form-group">{{form.admin.label}} : {{form.admin()}}</div>
+		<button type="submit">Submit</button>
+</form>
+</body>
+</html>
